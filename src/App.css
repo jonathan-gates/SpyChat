@@ -1,0 +1,61 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.card {
+  padding: 2em;
+  display: "flex";
+  width: "100%";
+}
+
+.input-div {
+  width: 30%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding: 2em;
+  margin: 22em 5em 5em 15em;
+  flex: 1;
+}
+
+.input-password-div {
+  height: 3em;
+  font-size: 1.5em;
+  padding-bottom: 1em;
+}
+
+.input-message-div {
+  height: 3em;
+  font-size: 1.5em;
+  padding-bottom: 1.5em;
+
+}
+
+.text-box {
+  width: 100%;
+  height: 2em;
+  font-size: 1em;
+  text-align: center;
+}
+
+.chatroom-div {
+  width: 50%;
+  height: 100vh;
+  position: fixed;
+  right: 0;
+  top: 0;
+  padding: 2em;
+  text-align: "center";
+  margin-top: 2em;
+  margin-right: 5em;
+  flex: 1;
+}
+
+.message-individual {
+  text-align: "center";
+  font-size: 1.25em;
+}

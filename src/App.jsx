@@ -7,11 +7,11 @@ function App() {
 
   const [messages, setMessages] = useState([]);
 
-  const containerRef = useRef(null);
+  const messagesScrollDiv = useRef(null);
 
   useEffect(() => {
-    if (containerRef?.current !== null) {
-      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    if (messagesScrollDiv?.current !== null) {
+      messagesScrollDiv.current.scrollTop = messagesScrollDiv.current.scrollHeight;
     }
   }, [messages]);
 
@@ -85,7 +85,7 @@ function App() {
               maxHeight: "75%",
               minHeight: "75%",
             }}
-            ref={containerRef}
+            ref={messagesScrollDiv}
           >
             <ul style={{ listStyleType: "none", textAlign: "center" }}>
               {messages.map((message, key) => (

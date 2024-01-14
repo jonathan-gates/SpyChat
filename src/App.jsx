@@ -57,6 +57,12 @@ function App() {
 
   return (
     <>
+    <div className="blurred-middle-line"> </div>
+    <div className="blurred-line top"> </div>
+    <div className="blurred-line bottom"> </div>
+    <div className="blurred-line left"> </div>
+    <div className="blurred-line right"> </div>
+
       <div className="card">
         <div className="input-div" style={inputStyle}>
           <div className="input-password-div">

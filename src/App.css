@@ -125,7 +125,7 @@
   height: 100vh;
   width: 10px; /* Adjust the width as needed */
   background-color: black; /* Line color */
-  filter: blur(2px); /* Adjust the blur intensity */
+  filter: blur(3px); /* Adjust the blur intensity */
   z-index: 10; 
 }
 

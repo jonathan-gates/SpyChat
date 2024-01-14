@@ -86,8 +86,8 @@
 .messages-div {
   position: center;
   overflow-y: auto;
-  max-height: 80%;
-  min-height: 80%;
+  max-height: 83%;
+  min-height: 83%;
   margin-left: 1em;
   margin-right: 1em;
   text-align: center;

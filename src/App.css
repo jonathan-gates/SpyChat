@@ -17,22 +17,35 @@
   position: fixed;
   left: 0;
   top: 0;
-  padding: 2em;
-  margin: 22em 5em 5em 15em;
+  padding: 22em 0em 5em 0em;
   flex: 1;
 }
 
+.input-label {
+  font-size: 1.7em;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .input-password-div {
+  width: 75%;
   height: 3em;
   font-size: 1.5em;
   padding-bottom: 1em;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .input-message-div {
+  width: 75%;
   height: 3em;
   font-size: 1.5em;
   padding-bottom: 1.5em;
-
+  margin: 0 auto;
+  text-align: center;
 }
 
 .text-box {
@@ -43,19 +56,57 @@
 }
 
 .chatroom-div {
-  width: 50%;
+  width: 30%;
   height: 100vh;
   position: fixed;
   right: 0;
   top: 0;
-  padding: 2em;
+  padding: 4em 0 0 0;
   text-align: "center";
-  margin-top: 2em;
-  margin-right: 5em;
   flex: 1;
+}
+.chatroom-h1 {
+  width: 30%;
+  margin-top: 0;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.messages-div {
+  position: center;
+  overflow-y: auto;
+  max-height: 75%;
+  min-height: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.messages-ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  list-style-type: none;
+  padding-left: 0;
+  text-align: center;
 }
 
 .message-individual {
-  text-align: "center";
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
   font-size: 1.25em;
+  background-color: rgba(60, 60, 60, 0.9);
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  margin: 0.5em 0 0.5em 0;
 }

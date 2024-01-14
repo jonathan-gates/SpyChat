@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./App.css";
+import twoSpies from "./assets/twospies.png";
+import manySpies from "./assets/manyspies.png";
 
 function App() {
   const [password, setPassword] = useState("");
@@ -37,14 +39,31 @@ function App() {
     }
   };
 
+  const inputStyle = {
+    width: '50%', // Adjust the width as needed
+    height: '100%', // Adjust the height as needed
+    backgroundImage: `url(${twoSpies})`,
+    backgroundSize: 'cover', // This ensures the image covers the entire div
+    backgroundPosition: 'center', // This centers the image in the div
+  };
+
+  const chatroomStyle = {
+    width: '50%', // Adjust the width as needed
+    height: '100%', // Adjust the height as needed
+    backgroundImage: `url(${manySpies})`,
+    backgroundSize: 'cover', // This ensures the image covers the entire div
+    backgroundPosition: 'center', // This centers the image in the div
+  };
+
   return (
     <>
       <div className="card">
-        <div className="input-div">
+        <div className="input-div" style={inputStyle}>
           <div className="input-password-div">
-            <label style={{fontSize: '1.7em'}}>Password:</label>
+            <label className="input-label">Password:</label>
 
             <br />
+            
 
             <input
               type="text"
@@ -59,7 +78,7 @@ function App() {
           <br />
 
           <div className="input-message-div">
-          <label style={{fontSize: '1.7em'}}>Message:</label>
+          <label className="input-label">Message:</label>
           <br />
           <input
             type="text"
@@ -76,18 +95,13 @@ function App() {
 
           <button onClick={handleButtonClick} >Submit</button>
         </div>
-        <div className="chatroom-div">
-          <h1 style={{ marginTop: 0, textAlign: "center" }}>Chat Room</h1>
+        <div className="chatroom-div" style={chatroomStyle}>
+          <h1 className="chatroom-h1">Chat Room</h1>
           <div
-            style={{
-              flex: 1,
-              overflowY: "auto",
-              maxHeight: "75%",
-              minHeight: "75%",
-            }}
+            className="messages-div"
             ref={messagesScrollDiv}
           >
-            <ul style={{ listStyleType: "none", textAlign: "center" }}>
+            <ul className="messages-ul">
               {messages.map((message, key) => (
                 <li className="message-individual" key={key}>
                   {message}

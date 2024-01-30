@@ -1,0 +1,27 @@
+{
+  "name": "spychat_express",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:jonathan-gates/CS4610-SpyChat.git",
+  "author": "Jonathan Gates <jonathangates33@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon index.ts",
+    "prebuild": "rimraf ./dist",
+    "build": "tsc && cd client && yarn build",
+    "postbuild": "cp -r views ./dist/views"
+
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "express-handlebars": "^7.1.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/express-handlebars": "^6.0.0",
+    "nodemon": "^3.0.3",
+    "rimraf": "^5.0.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

@@ -1,5 +1,4 @@
 import express from "express";
-import path from "path";
 import { engine } from "express-handlebars";
 import fs from "fs";
 const DEBUG = process.env.NODE_ENV !== "production";

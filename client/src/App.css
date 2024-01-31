@@ -6,18 +6,19 @@
 }
 
 .card {
-  padding: 2em;
-  display: "flex";
-  width: "100%";
+  /* padding: 2em; */
+  display: flex;
+  width: 100%;
+  height: 100%;
 }
 
 .input-div {
   width: 30%;
-  height: 100vh;
+  height: 100%;
   position: fixed;
   left: 0;
   top: 0;
-  padding: 22em 0em 5em 0em;
+  padding: 25vh 0 5vh 0;
   flex: 1;
 }
 

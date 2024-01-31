@@ -13,7 +13,8 @@ function App() {
 
   useEffect(() => {
     if (messagesScrollDiv?.current !== null) {
-      messagesScrollDiv.current.scrollTop = messagesScrollDiv.current.scrollHeight;
+      messagesScrollDiv.current.scrollTop =
+        messagesScrollDiv.current.scrollHeight;
     }
   }, [messages]);
 
@@ -40,28 +41,28 @@ function App() {
   };
 
   const inputStyle = {
-    width: '50%', // Adjust the width as needed
-    height: '100%', // Adjust the height as needed
+    width: "50%", // Adjust the width as needed
+    height: "100%", // Adjust the height as needed
     backgroundImage: `url(${twoSpies})`,
-    backgroundSize: 'cover', // This ensures the image covers the entire div
-    backgroundPosition: 'center', // This centers the image in the div
+    backgroundSize: "cover", // This ensures the image covers the entire div
+    backgroundPosition: "center", // This centers the image in the div
   };
 
   const chatroomStyle = {
-    width: '50%', // Adjust the width as needed
-    height: '100%', // Adjust the height as needed
+    width: "50%", // Adjust the width as needed
+    height: "100%", // Adjust the height as needed
     backgroundImage: `url(${manySpies})`,
-    backgroundSize: 'cover', // This ensures the image covers the entire div
-    backgroundPosition: 'center', // This centers the image in the div
+    backgroundSize: "cover", // This ensures the image covers the entire div
+    backgroundPosition: "center", // This centers the image in the div
   };
 
   return (
     <>
-    <div className="blurred-middle-line"> </div>
-    <div className="blurred-line top"> </div>
-    <div className="blurred-line bottom"> </div>
-    <div className="blurred-line left"> </div>
-    <div className="blurred-line right"> </div>
+      <div className="blurred-middle-line"> </div>
+      <div className="blurred-line top"> </div>
+      <div className="blurred-line bottom"> </div>
+      <div className="blurred-line left"> </div>
+      <div className="blurred-line right"> </div>
 
       <div className="card">
         <div className="input-div" style={inputStyle}>
@@ -69,7 +70,6 @@ function App() {
             <label className="input-label">Password:</label>
 
             <br />
-            
 
             <input
               type="text"
@@ -84,29 +84,26 @@ function App() {
           <br />
 
           <div className="input-message-div">
-          <label className="input-label">Message:</label>
-          <br />
-          <input
-            type="text"
-            className="text-box"
-            value={message}
-            onChange={handleMessageChange}
-            onKeyDown={handleInputKeyPress}
-            placeholder="message"
-          />
+            <label className="input-label">Message:</label>
+            <br />
+            <textarea
+              type="text"
+              className="text-box"
+              value={message}
+              onChange={handleMessageChange}
+              onKeyDown={handleInputKeyPress}
+              placeholder="message"
+            />
           </div>
 
           <br />
           <br />
 
-          <button onClick={handleButtonClick} >Submit</button>
+          <button onClick={handleButtonClick}>Submit</button>
         </div>
         <div className="chatroom-div" style={chatroomStyle}>
           <h1 className="chatroom-h1">Chat Room</h1>
-          <div
-            className="messages-div"
-            ref={messagesScrollDiv}
-          >
+          <div className="messages-div" ref={messagesScrollDiv}>
             <ul className="messages-ul">
               {messages.map((message, key) => (
                 <li className="message-individual" key={key}>

@@ -75,7 +75,6 @@ const MessageDecryptor = ({ messages, setMessages, passKey, socket }) => {
         name = "message-individual-clickable";
     }
     if (socket.id === message?.id) {
-        console.log("first")
         name += " message-own";
     }
     return name;

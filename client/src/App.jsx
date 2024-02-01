@@ -4,8 +4,8 @@ import twoSpies from "./assets/twospies.png";
 import manySpies from "./assets/manyspies.png";
 import { io } from "socket.io-client";
 import CryptoJS from "crypto-js";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer} from "react-toastify";
+import MessageDecryptor from "./MessageDecryptor";
 
 function App() {
   const [socket, setSocket] = useState(null);
@@ -28,7 +28,7 @@ function App() {
   useEffect(() => {
     if (socket === null) return;
     socket.on("receive_message", (message) => {
-      setMessages( currentMessages => [...currentMessages, message]);
+      setMessages((currentMessages) => [...currentMessages, message]);
     });
   }, [socket]);
 
@@ -51,34 +51,15 @@ function App() {
     if (message === "") {
       return;
     }
-    // setMessages([...messages, message]);
+
     const encryptedMessage = CryptoJS.AES.encrypt(message, key).toString();
     const encryptedKey = CryptoJS.AES.encrypt(key, key).toString();
-    socket.emit("send_message", {message: encryptedMessage, key: encryptedKey});
+    socket.emit("send_message", {
+      message: encryptedMessage,
+      key: encryptedKey,
+    });
     setMessage("");
   };
-
-  const handleMessageClicked = (message) => {
-    decryptMessage(message, key);
-  }
-
-  const decryptMessage = (message, chosenKey) => {
-    const decrypted = CryptoJS.AES.decrypt(message?.message, chosenKey).toString(CryptoJS.enc.Utf8);
-    if (decrypted === "") {
-      toast.error("Incorrect Key", {autoClose: 3000, theme: "dark"});
-    } else {
-      // find this message in the messages array and change it to decrypted
-      const newMessages = messages.map( (msg) => {
-        if (JSON.stringify(msg) === JSON.stringify(message)) {
-          return {...msg, message: decrypted, decrypted: true};
-        }
-        return msg;
-      });
-      setMessages(newMessages);
-    }
-    // toast.dark(decrypted.toString(), {autoClose: 3000});
-    
-  }
 
   const handleInputKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -86,6 +67,7 @@ function App() {
     }
   };
 
+  // chatgpt
   const inputStyle = {
     width: "50%", // Adjust the width as needed
     height: "100%", // Adjust the height as needed
@@ -93,7 +75,6 @@ function App() {
     backgroundSize: "cover", // This ensures the image covers the entire div
     backgroundPosition: "center", // This centers the image in the div
   };
-
   const chatroomStyle = {
     width: "50%", // Adjust the width as needed
     height: "100%", // Adjust the height as needed
@@ -104,7 +85,7 @@ function App() {
 
   return (
     <>
-        <ToastContainer />
+      <ToastContainer />
       <div className="blurred-middle-line"> </div>
       <div className="blurred-line top"> </div>
       <div className="blurred-line bottom"> </div>
@@ -151,15 +132,12 @@ function App() {
         <div className="chatroom-div" style={chatroomStyle}>
           <h1 className="chatroom-h1">Chat Room</h1>
           <div className="messages-div" ref={messagesScrollDiv}>
-            <ul className="messages-ul">
-              {messages.map((message, key) => {
-                return (
-                  <li className="message-individual" onClick={!message?.decrypted ? () => handleMessageClicked(message) : null} key={key}>
-                    {message?.message}
-                  </li>
-                );
-              })}
-            </ul>
+            <MessageDecryptor
+              messages={messages}
+              setMessages={setMessages}
+              passKey={key}
+              socket={socket}
+            />
           </div>
         </div>
       </div>

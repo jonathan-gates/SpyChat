@@ -103,9 +103,13 @@ const MessageDecryptor = ({ messages, setMessages, passKey, socket }) => {
         {() => (
           <div className="modal dark-popup">
             <button onClick={handleClosePopup}>&times;</button>
+            <br />
+            <br />
+
             <div className="content">
-              <h3>{currentMessage?.message}</h3>
+              {currentMessage?.message}
             </div>
+            <br />
             <input
               className="text-box"
               type="text"

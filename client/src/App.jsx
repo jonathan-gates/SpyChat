@@ -2,14 +2,35 @@ import { useState, useEffect, useRef } from "react";
 import "./App.css";
 import twoSpies from "./assets/twospies.png";
 import manySpies from "./assets/manyspies.png";
+import { io } from "socket.io-client";
+import CryptoJS from "crypto-js";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
-  const [password, setPassword] = useState("");
+  const [socket, setSocket] = useState(null);
+  const [key, setKey] = useState("");
   const [message, setMessage] = useState("");
 
   const [messages, setMessages] = useState([]);
 
   const messagesScrollDiv = useRef(null);
+
+  useEffect(() => {
+    const newSocket = io();
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (socket === null) return;
+    socket.on("receive_message", (message) => {
+      setMessages( currentMessages => [...currentMessages, message]);
+    });
+  }, [socket]);
 
   useEffect(() => {
     if (messagesScrollDiv?.current !== null) {
@@ -18,8 +39,8 @@ function App() {
     }
   }, [messages]);
 
-  const handlePasswordChange = (e) => {
-    setPassword(e.target.value);
+  const handleKeyChange = (e) => {
+    setKey(e.target.value);
   };
 
   const handleMessageChange = (e) => {
@@ -30,9 +51,34 @@ function App() {
     if (message === "") {
       return;
     }
-    setMessages([...messages, message]);
+    // setMessages([...messages, message]);
+    const encryptedMessage = CryptoJS.AES.encrypt(message, key).toString();
+    const encryptedKey = CryptoJS.AES.encrypt(key, key).toString();
+    socket.emit("send_message", {message: encryptedMessage, key: encryptedKey});
     setMessage("");
   };
+
+  const handleMessageClicked = (message) => {
+    decryptMessage(message, key);
+  }
+
+  const decryptMessage = (message, chosenKey) => {
+    const decrypted = CryptoJS.AES.decrypt(message?.message, chosenKey).toString(CryptoJS.enc.Utf8);
+    if (decrypted === "") {
+      toast.error("Incorrect Key", {autoClose: 3000, theme: "dark"});
+    } else {
+      // find this message in the messages array and change it to decrypted
+      const newMessages = messages.map( (msg) => {
+        if (JSON.stringify(msg) === JSON.stringify(message)) {
+          return {...msg, message: decrypted, decrypted: true};
+        }
+        return msg;
+      });
+      setMessages(newMessages);
+    }
+    // toast.dark(decrypted.toString(), {autoClose: 3000});
+    
+  }
 
   const handleInputKeyPress = (e) => {
     if (e.key === "Enter") {
@@ -58,6 +104,7 @@ function App() {
 
   return (
     <>
+        <ToastContainer />
       <div className="blurred-middle-line"> </div>
       <div className="blurred-line top"> </div>
       <div className="blurred-line bottom"> </div>
@@ -66,17 +113,17 @@ function App() {
 
       <div className="card">
         <div className="input-div" style={inputStyle}>
-          <div className="input-password-div">
-            <label className="input-label">Password:</label>
+          <div className="input-key-div">
+            <label className="input-label">Key:</label>
 
             <br />
 
             <input
               type="text"
               className="text-box"
-              value={password}
-              onChange={handlePasswordChange}
-              placeholder="password"
+              value={key}
+              onChange={handleKeyChange}
+              placeholder="key"
             />
           </div>
 
@@ -86,7 +133,7 @@ function App() {
           <div className="input-message-div">
             <label className="input-label">Message:</label>
             <br />
-            <textarea
+            <input
               type="text"
               className="text-box"
               value={message}
@@ -105,11 +152,13 @@ function App() {
           <h1 className="chatroom-h1">Chat Room</h1>
           <div className="messages-div" ref={messagesScrollDiv}>
             <ul className="messages-ul">
-              {messages.map((message, key) => (
-                <li className="message-individual" key={key}>
-                  {message}
-                </li>
-              ))}
+              {messages.map((message, key) => {
+                return (
+                  <li className="message-individual" onClick={!message?.decrypted ? () => handleMessageClicked(message) : null} key={key}>
+                    {message?.message}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         </div>
